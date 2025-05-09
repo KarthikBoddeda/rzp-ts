@@ -9,8 +9,8 @@ It is generated with [Stainless](https://www.stainless.com/).
 Because it's not published yet, clone the repo and build it:
 
 ```sh
-git clone git@github.com:stainless-sdks/rzp-typescript.git
-cd rzp-typescript
+git clone git@github.com:KarthikBoddeda/rzp-ts.git
+cd rzp-ts
 yarn && ./scripts/build-all
 ```
 
@@ -40,7 +40,7 @@ For clients with a configuration JSON, it might look something like this:
   "mcpServers": {
     "rzp_api": {
       "command": "npx",
-      "args": ["-y", "/path/to/local/rzp-typescript/packages/mcp-server", "--client=claude"],
+      "args": ["-y", "/path/to/local/rzp-ts/packages/mcp-server", "--client=claude"],
       "env": {
         "RZP_USERNAME": "My Username",
         "RZP_PASSWORD": "My Password"

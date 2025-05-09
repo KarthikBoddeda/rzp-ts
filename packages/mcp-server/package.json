@@ -8,10 +8,10 @@
   "type": "commonjs",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/stainless-sdks/rzp-typescript.git",
+    "url": "git+https://github.com/KarthikBoddeda/rzp-ts.git",
     "directory": "packages/mcp-server"
   },
-  "homepage": "https://github.com/stainless-sdks/rzp-typescript/tree/main/packages/mcp-server#readme",
+  "homepage": "https://github.com/KarthikBoddeda/rzp-ts/tree/main/packages/mcp-server#readme",
   "license": "Apache-2.0",
   "packageManager": "yarn@1.22.22",
   "private": false,
