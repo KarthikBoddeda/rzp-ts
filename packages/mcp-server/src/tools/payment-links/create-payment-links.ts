@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   resource: 'payment_links',
   operation: 'write',
   tags: [],
+  httpMethod: 'post',
+  httpPath: '/payment_links',
+  operationId: 'createPaymentLink',
 };
 
 export const tool: Tool = {
