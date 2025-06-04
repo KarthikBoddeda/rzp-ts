@@ -30,17 +30,13 @@ const client = new Rzp({
   password: process.env['RZP_PASSWORD'], // This is the default and can be omitted
 });
 
-async function main() {
-  const paymentLink = await client.paymentLinks.create({
-    amount: 1000,
-    currency: 'INR',
-    description: 'Payment for policy no',
-  });
+const paymentLink = await client.paymentLinks.create({
+  amount: 1000,
+  currency: 'INR',
+  description: 'Payment for policy no',
+});
 
-  console.log(paymentLink.id);
-}
-
-main();
+console.log(paymentLink.id);
 ```
 
 ### Request & Response types
@@ -56,16 +52,12 @@ const client = new Rzp({
   password: process.env['RZP_PASSWORD'], // This is the default and can be omitted
 });
 
-async function main() {
-  const params: Rzp.PaymentLinkCreateParams = {
-    amount: 1000,
-    currency: 'INR',
-    description: 'Payment for policy no',
-  };
-  const paymentLink: Rzp.PaymentLink = await client.paymentLinks.create(params);
-}
-
-main();
+const params: Rzp.PaymentLinkCreateParams = {
+  amount: 1000,
+  currency: 'INR',
+  description: 'Payment for policy no',
+};
+const paymentLink: Rzp.PaymentLink = await client.paymentLinks.create(params);
 ```
 
 Documentation for each method, request param, and response field are available in docstrings and will appear on hover in most modern editors.
@@ -78,21 +70,17 @@ a subclass of `APIError` will be thrown:
 
 <!-- prettier-ignore -->
 ```ts
-async function main() {
-  const paymentLink = await client.paymentLinks
-    .create({ amount: 1000, currency: 'INR', description: 'Payment for policy no' })
-    .catch(async (err) => {
-      if (err instanceof Rzp.APIError) {
-        console.log(err.status); // 400
-        console.log(err.name); // BadRequestError
-        console.log(err.headers); // {server: 'nginx', ...}
-      } else {
-        throw err;
-      }
-    });
-}
-
-main();
+const paymentLink = await client.paymentLinks
+  .create({ amount: 1000, currency: 'INR', description: 'Payment for policy no' })
+  .catch(async (err) => {
+    if (err instanceof Rzp.APIError) {
+      console.log(err.status); // 400
+      console.log(err.name); // BadRequestError
+      console.log(err.headers); // {server: 'nginx', ...}
+    } else {
+      throw err;
+    }
+  });
 ```
 
 Error codes are as follows:
