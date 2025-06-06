@@ -1,5 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+import { asTextContentResult } from 'rzp-mcp/tools/types';
+
 import { Tool } from '@modelcontextprotocol/sdk/types.js';
 import type { Metadata } from '../';
 import Rzp from 'rzp';
@@ -95,9 +97,9 @@ export const tool: Tool = {
   },
 };
 
-export const handler = (client: Rzp, args: Record<string, unknown> | undefined) => {
+export const handler = async (client: Rzp, args: Record<string, unknown> | undefined) => {
   const body = args as any;
-  return client.paymentLinks.create(body);
+  return asTextContentResult(await client.paymentLinks.create(body));
 };
 
 export default { metadata, tool, handler };
