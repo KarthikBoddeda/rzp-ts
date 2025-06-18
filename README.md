@@ -1,6 +1,6 @@
 # Rzp TypeScript API Library
 
-[![NPM version](https://img.shields.io/npm/v/rzp.svg)](https://npmjs.org/package/rzp) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/rzp)
+[![NPM version](<https://img.shields.io/npm/v/rzp.svg?label=npm%20(stable)>)](https://npmjs.org/package/rzp) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/rzp)
 
 This library provides convenient access to the Rzp REST API from server-side TypeScript or JavaScript.
 
