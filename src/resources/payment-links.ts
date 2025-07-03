@@ -70,7 +70,7 @@ export interface PaymentLink {
 
   first_min_partial_amount?: number;
 
-  notes?: Record<string, string>;
+  notes?: { [key: string]: string };
 
   notify?: PaymentLink.Notify;
 
@@ -150,7 +150,7 @@ export interface PaymentLinkCreateParams {
    */
   first_min_partial_amount?: number;
 
-  notes?: Record<string, string>;
+  notes?: { [key: string]: string };
 
   notify?: PaymentLinkCreateParams.Notify;
 

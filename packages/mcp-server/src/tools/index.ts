@@ -1,24 +1,11 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import Rzp from 'rzp';
-import { Tool } from '@modelcontextprotocol/sdk/types.js';
+import { Metadata, Endpoint, HandlerFunction } from './types';
+
+export { Metadata, Endpoint, HandlerFunction };
 
 import create_payment_links from './payment-links/create-payment-links';
 import retrieve_payment_links from './payment-links/retrieve-payment-links';
-
-export type HandlerFunction = (client: Rzp, args: Record<string, unknown> | undefined) => Promise<any>;
-
-export type Metadata = {
-  resource: string;
-  operation: 'read' | 'write';
-  tags: string[];
-};
-
-export type Endpoint = {
-  metadata: Metadata;
-  tool: Tool;
-  handler: HandlerFunction;
-};
 
 export const endpoints: Endpoint[] = [];
 
@@ -36,11 +23,7 @@ export type Filter = {
 };
 
 export function query(filters: Filter[], endpoints: Endpoint[]): Endpoint[] {
-  if (filters.length === 0) {
-    return endpoints;
-  }
-
-  const allExcludes = filters.every((filter) => filter.op === 'exclude');
+  const allExcludes = filters.length > 0 && filters.every((filter) => filter.op === 'exclude');
   const unmatchedFilters = new Set(filters);
 
   const filtered = endpoints.filter((endpoint: Endpoint) => {
@@ -57,9 +40,10 @@ export function query(filters: Filter[], endpoints: Endpoint[]): Endpoint[] {
   });
 
   // Check if any filters didn't match
-  if (unmatchedFilters.size > 0) {
+  const unmatched = Array.from(unmatchedFilters).filter((f) => f.type === 'tool' || f.type === 'resource');
+  if (unmatched.length > 0) {
     throw new Error(
-      `The following filters did not match any endpoints: ${[...unmatchedFilters]
+      `The following filters did not match any endpoints: ${unmatched
         .map((f) => `${f.type}=${f.value}`)
         .join(', ')}`,
     );

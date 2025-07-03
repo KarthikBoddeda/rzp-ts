@@ -9,9 +9,10 @@ It is generated with [Stainless](https://www.stainless.com/).
 Because it's not published yet, clone the repo and build it:
 
 ```sh
-git clone git@github.com:stainless-sdks/rzp-typescript.git
-cd rzp-typescript
-yarn && ./scripts/build-all
+git clone git@github.com:KarthikBoddeda/rzp-ts.git
+cd rzp-ts
+./scripts/bootstrap
+./scripts/build
 ```
 
 ### Running
@@ -20,11 +21,11 @@ yarn && ./scripts/build-all
 # set env vars as needed
 export RZP_USERNAME="My Username"
 export RZP_PASSWORD="My Password"
-npx ./packages/mcp-server
+node ./packages/mcp-server/dist/index.js
 ```
 
 > [!NOTE]
-> Once this package is [published to npm](https://app.stainless.com/docs/guides/publish), this will become: `npx -y rzp-mcp`
+> Once this package is [published to npm](https://www.stainless.com/docs/guides/publish), this will become: `npx -y rzp-mcp`
 
 ### Via MCP Client
 
@@ -39,8 +40,8 @@ For clients with a configuration JSON, it might look something like this:
 {
   "mcpServers": {
     "rzp_api": {
-      "command": "npx",
-      "args": ["-y", "/path/to/local/rzp-typescript/packages/mcp-server", "--client=claude"],
+      "command": "node",
+      "args": ["/path/to/local/rzp-ts/packages/mcp-server", "--client=claude", "--tools=all"],
       "env": {
         "RZP_USERNAME": "My Username",
         "RZP_PASSWORD": "My Password"
@@ -50,7 +51,14 @@ For clients with a configuration JSON, it might look something like this:
 }
 ```
 
-## Filtering tools
+## Exposing endpoints to your MCP Client
+
+There are two ways to expose endpoints as tools in the MCP server:
+
+1. Exposing one tool per endpoint, and filtering as necessary
+2. Exposing a set of tools to dynamically discover and invoke endpoints from the API
+
+### Filtering endpoints and tools
 
 You can run the package on the command line to discover and filter the set of tools that are exposed by the
 MCP Server. This can be helpful for large APIs where including all endpoints at once is too much for your AI's
@@ -61,6 +69,21 @@ You can filter by multiple aspects:
 - `--tool` includes a specific tool by name
 - `--resource` includes all tools under a specific resource, and can have wildcards, e.g. `my.resource*`
 - `--operation` includes just read (get/list) or just write operations
+
+### Dynamic tools
+
+If you specify `--tools=dynamic` to the MCP server, instead of exposing one tool per endpoint in the API, it will
+expose the following tools:
+
+1. `list_api_endpoints` - Discovers available endpoints, with optional filtering by search query
+2. `get_api_endpoint_schema` - Gets detailed schema information for a specific endpoint
+3. `invoke_api_endpoint` - Executes any endpoint with the appropriate parameters
+
+This allows you to have the full set of API endpoints available to your MCP Client, while not requiring that all
+of their schemas be loaded into context at once. Instead, the LLM will automatically use these tools together to
+search for, look up, and invoke endpoints dynamically. However, due to the indirect nature of the schemas, it
+can struggle to provide the correct properties a bit more than when tools are imported explicitly. Therefore,
+you can opt-in to explicit tools, the dynamic tools, or both.
 
 See more information with `--help`.
 

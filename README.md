@@ -1,6 +1,6 @@
 # Rzp TypeScript API Library
 
-[![NPM version](https://img.shields.io/npm/v/rzp.svg)](https://npmjs.org/package/rzp) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/rzp)
+[![NPM version](<https://img.shields.io/npm/v/rzp.svg?label=npm%20(stable)>)](https://npmjs.org/package/rzp) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/rzp)
 
 This library provides convenient access to the Rzp REST API from server-side TypeScript or JavaScript.
 
@@ -11,11 +11,11 @@ It is generated with [Stainless](https://www.stainless.com/).
 ## Installation
 
 ```sh
-npm install git+ssh://git@github.com:stainless-sdks/rzp-typescript.git
+npm install git+ssh://git@github.com:KarthikBoddeda/rzp-ts.git
 ```
 
 > [!NOTE]
-> Once this package is [published to npm](https://app.stainless.com/docs/guides/publish), this will become: `npm install rzp`
+> Once this package is [published to npm](https://www.stainless.com/docs/guides/publish), this will become: `npm install rzp`
 
 ## Usage
 
@@ -30,17 +30,13 @@ const client = new Rzp({
   password: process.env['RZP_PASSWORD'], // This is the default and can be omitted
 });
 
-async function main() {
-  const paymentLink = await client.paymentLinks.create({
-    amount: 1000,
-    currency: 'INR',
-    description: 'Payment for policy no',
-  });
+const paymentLink = await client.paymentLinks.create({
+  amount: 1000,
+  currency: 'INR',
+  description: 'Payment for policy no',
+});
 
-  console.log(paymentLink.id);
-}
-
-main();
+console.log(paymentLink.id);
 ```
 
 ### Request & Response types
@@ -56,16 +52,12 @@ const client = new Rzp({
   password: process.env['RZP_PASSWORD'], // This is the default and can be omitted
 });
 
-async function main() {
-  const params: Rzp.PaymentLinkCreateParams = {
-    amount: 1000,
-    currency: 'INR',
-    description: 'Payment for policy no',
-  };
-  const paymentLink: Rzp.PaymentLink = await client.paymentLinks.create(params);
-}
-
-main();
+const params: Rzp.PaymentLinkCreateParams = {
+  amount: 1000,
+  currency: 'INR',
+  description: 'Payment for policy no',
+};
+const paymentLink: Rzp.PaymentLink = await client.paymentLinks.create(params);
 ```
 
 Documentation for each method, request param, and response field are available in docstrings and will appear on hover in most modern editors.
@@ -78,21 +70,17 @@ a subclass of `APIError` will be thrown:
 
 <!-- prettier-ignore -->
 ```ts
-async function main() {
-  const paymentLink = await client.paymentLinks
-    .create({ amount: 1000, currency: 'INR', description: 'Payment for policy no' })
-    .catch(async (err) => {
-      if (err instanceof Rzp.APIError) {
-        console.log(err.status); // 400
-        console.log(err.name); // BadRequestError
-        console.log(err.headers); // {server: 'nginx', ...}
-      } else {
-        throw err;
-      }
-    });
-}
-
-main();
+const paymentLink = await client.paymentLinks
+  .create({ amount: 1000, currency: 'INR', description: 'Payment for policy no' })
+  .catch(async (err) => {
+    if (err instanceof Rzp.APIError) {
+      console.log(err.status); // 400
+      console.log(err.name); // BadRequestError
+      console.log(err.headers); // {server: 'nginx', ...}
+    } else {
+      throw err;
+    }
+  });
 ```
 
 Error codes are as follows:
@@ -254,9 +242,8 @@ parameter. This library doesn't validate at runtime that the request matches the
 send will be sent as-is.
 
 ```ts
-client.foo.create({
-  foo: 'my_param',
-  bar: 12,
+client.paymentLinks.create({
+  // ...
   // @ts-expect-error baz is not yet public
   baz: 'undocumented option',
 });
@@ -365,7 +352,7 @@ This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) con
 
 We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
 
-We are keen for your feedback; please open an [issue](https://www.github.com/stainless-sdks/rzp-typescript/issues) with questions, bugs, or suggestions.
+We are keen for your feedback; please open an [issue](https://www.github.com/KarthikBoddeda/rzp-ts/issues) with questions, bugs, or suggestions.
 
 ## Requirements
 
